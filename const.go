@@ -8,3 +8,10 @@ const (
 	configLogError = "error"
 	configLogFatal = "fatal"
 )
+
+const (
+	amiEventName        = "PeerStatus"
+	amiEventField       = "PeerStatus"
+	amiStatusRegister   = "Registered"
+	amiStatusUnregister = "Unregistered"
+)
