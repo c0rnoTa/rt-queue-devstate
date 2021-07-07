@@ -1,0 +1,29 @@
+# Уровень журналирования событий
+# Может принимать значения: debug, info, warn, error, fatal
+loglevel: "info"
+
+# Подключение к Asterisk
+asterisk:
+  # Адрес сервера телефонии с Asterisk
+  host: "localhost"
+  # Порт, на котором доступен AMI интерфейс
+  port: 5038
+  # Имя учетной записи для подключения через AMI
+  username: "admin"
+  # Пароль учетной записи для подключения через AMI
+  password: "password"
+
+# Подключение к базе данных MySQL
+mysql:
+  # Адрес сервиса СУБД
+  host: "127.0.0.1"
+  # Порт, на котором СУБД слушает подключения
+  port: 3306
+  # Имя учетной записи для подключения к СУБД
+  username: "asteriskuser"
+  # Пароль учетной записи для подключения к СУБД
+  password: "asteriskpass"
+  # Имя базы данных
+  database: "asterisk"
+  # Название таблицы с SIP пирами
+  table: "sipfriends"
