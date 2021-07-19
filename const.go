@@ -10,8 +10,7 @@ const (
 )
 
 const (
-	amiEventName        = "PeerStatus"
-	amiEventField       = "PeerStatus"
-	amiStatusRegister   = "Registered"
-	amiStatusUnregister = "Unregistered"
+	amiEventInUse    = "AgentConnect"
+	amiEventNotInUse = "AgentComplete"
+	amiFieldMember   = "MemberName"
 )

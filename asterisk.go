@@ -30,7 +30,12 @@ func (a *MyApp) RunAsteriskWorker() {
 		log.Fatalf("AMI connection error [%s]: %s", amiConn, message)
 	})
 
-	err := a.ami.RegisterHandler(amiEventName, a.PeerStatus)
+	err := a.ami.RegisterHandler(amiEventInUse, a.PeerStatus)
+	if err != nil {
+		log.Error("AMI could not register handler: ", err)
+	}
+
+	err = a.ami.RegisterHandler(amiEventNotInUse, a.PeerStatus)
 	if err != nil {
 		log.Error("AMI could not register handler: ", err)
 	}
@@ -40,11 +45,12 @@ func (a *MyApp) RunAsteriskWorker() {
 func (a *MyApp) PeerStatus(m map[string]string) {
 	log.SetLevel(a.logLevel)
 	log.Debugf("AMI event received: %v\n", m)
-	fields, err := getFields(m, amiEventField)
+	fields, err := getFields(m, amiFieldMember)
 	if err != nil {
 		log.Error("AMI Error in event handler: ", err)
 		return
 	}
+	log.Infof("AMI action here for member %s", fields[amiFieldMember])
 }
 
 func getFields(m map[string]string, fields ...string) (map[string]string, error) {
