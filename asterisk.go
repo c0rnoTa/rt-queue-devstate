@@ -30,19 +30,19 @@ func (a *MyApp) RunAsteriskWorker() {
 		log.Fatalf("AMI connection error [%s]: %s", amiConn, message)
 	})
 
-	err := a.ami.RegisterHandler(amiEventInUse, a.PeerStatus)
+	err := a.ami.RegisterHandler(amiEventInUse, a.SetInuse)
 	if err != nil {
 		log.Error("AMI could not register handler: ", err)
 	}
 
-	err = a.ami.RegisterHandler(amiEventNotInUse, a.PeerStatus)
+	err = a.ami.RegisterHandler(amiEventNotInUse, a.SetNotinuse)
 	if err != nil {
 		log.Error("AMI could not register handler: ", err)
 	}
 
 }
 
-func (a *MyApp) PeerStatus(m map[string]string) {
+func (a *MyApp) SetInuse(m map[string]string) {
 	log.SetLevel(a.logLevel)
 	log.Debugf("AMI event received: %v\n", m)
 	fields, err := getFields(m, amiFieldMember)
@@ -51,6 +51,19 @@ func (a *MyApp) PeerStatus(m map[string]string) {
 		return
 	}
 	log.Infof("AMI action here for member %s", fields[amiFieldMember])
+	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s INUSE", fields[amiFieldMember])})
+}
+
+func (a *MyApp) SetNotinuse(m map[string]string) {
+	log.SetLevel(a.logLevel)
+	log.Debugf("AMI event received: %v\n", m)
+	fields, err := getFields(m, amiFieldMember)
+	if err != nil {
+		log.Error("AMI Error in event handler: ", err)
+		return
+	}
+	log.Infof("AMI action here for member %s", fields[amiFieldMember])
+	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s NOT_INUSE", fields[amiFieldMember])})
 }
 
 func getFields(m map[string]string, fields ...string) (map[string]string, error) {
