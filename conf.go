@@ -9,10 +9,11 @@ import (
 // Config - Структура конфигурационного файла
 type Config struct {
 	Asterisk struct {
-		Host     string `yaml:"host"`
-		Port     int    `yaml:"port"`
-		Username string `yaml:"username"`
-		Password string `yaml:"password"`
+		Host      string `yaml:"host"`
+		Port      int    `yaml:"port"`
+		Username  string `yaml:"username"`
+		Password  string `yaml:"password"`
+		Reconnect int    `yaml:"reconnect"`
 	} `yaml:"asterisk"`
 	LogLevel string `yaml:"loglevel"`
 }

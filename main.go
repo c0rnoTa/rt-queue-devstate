@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/ivahaev/amigo"
 	log "github.com/sirupsen/logrus"
+	"time"
 )
 
 // MyApp - Здесь все активные хэндлеры приложения
@@ -29,7 +30,16 @@ func main() {
 	// Запускаем подключение к Asterisk
 	go App.RunAsteriskWorker()
 
-	// TODO Сюда можно добавить проверку статуса подключений и их восстановление в цикле
-	ch := make(chan bool)
-	<-ch
+	// Запускаем таймер на периодическую проверку подключения в Asterisk
+	ticker := time.NewTicker(time.Duration(App.config.Asterisk.Reconnect) * time.Second)
+
+	for {
+		select {
+		case <-ticker.C:
+			if !App.ami.Connected() {
+				App.ami.Connect()
+			}
+		}
+	}
+
 }

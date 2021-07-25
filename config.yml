@@ -12,3 +12,5 @@ asterisk:
   username: "admin"
   # Пароль учетной записи для подключения через AMI
   password: "password"
+  # Интервал проверки подключения к AMI в секундах
+  reconnect: 5

@@ -14,6 +14,7 @@ const (
 	amiEventNotInUse = "AgentComplete"
 	amiFieldMember   = "MemberName"
 	amiCommand       = "devstate change Custom:%s %s"
+	amiFlushDevstate = "database deltree CustomDevstate"
 	devNotInuse      = "NOT_INUSE"
 	devInuse         = "INUSE"
 )
