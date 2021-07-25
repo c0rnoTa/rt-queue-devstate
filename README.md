@@ -51,6 +51,9 @@ write = system,call,agent,user,config,command,reporting,originate,message
 eventfilter=Event: AgentComplete
 eventfilter=Event: AgentConnect
 ```
-
-2. Бинарь размещаем в одной директории с конфигом в `/opt/fibex/rt-queue-devstate`
-3. Systemd юнит добавляем в `/etc/systemd/system` и делаем `systemctl daemon-reload`
+2. В `/etc/asterisk/extensions.conf` добавляем смешанный hint
+```
+exten => _X!,hint,SIP/${EXTEN}&Custom:${EXTEN}
+```
+3. Бинарь размещаем в одной директории с конфигом в `/opt/fibex/rt-queue-devstate`
+4. Systemd юнит добавляем в `/etc/systemd/system` и делаем `systemctl daemon-reload`
