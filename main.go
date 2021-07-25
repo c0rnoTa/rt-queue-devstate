@@ -13,7 +13,7 @@ type MyApp struct {
 	ami      *amigo.Amigo
 }
 
-// will be filled at buid phase
+// will be filled at build phase
 var gitHash, buildTime string
 
 func main() {

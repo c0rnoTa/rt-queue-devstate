@@ -37,3 +37,20 @@
 ```shell
 go build -ldflags "-X main.buildTime=`date +%Y-%m-%d:%H:%M:%S` -X main.gitHash=`git rev-parse --short HEAD`"
 ```
+
+### Установка
+
+1. В `/etc/asterisk/manager.conf` добавляем 
+```
+[rt-queue-devstate]
+secret = password
+deny = 0.0.0.0/0.0.0.0
+permit = 127.0.0.1/255.255.255.255
+read = system,call,log,verbose,agent,user,config,dtmf,reporting,cdr,dialplan
+write = system,call,agent,user,config,command,reporting,originate,message
+eventfilter=Event: AgentComplete
+eventfilter=Event: AgentConnect
+```
+
+2. Бинарь размещаем в одной директории с конфигом в `/opt/fibex/rt-queue-devstate`
+3. Systemd юнит добавляем в `/etc/systemd/system` и делаем `systemctl daemon-reload`

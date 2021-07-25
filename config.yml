@@ -9,7 +9,7 @@ asterisk:
   # Порт, на котором доступен AMI интерфейс
   port: 5038
   # Имя учетной записи для подключения через AMI
-  username: "admin"
+  username: "rt-queue-devstate"
   # Пароль учетной записи для подключения через AMI
   password: "password"
   # Интервал проверки подключения к AMI в секундах
