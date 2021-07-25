@@ -1,0 +1,11 @@
+[Unit]
+Description=FIBEX Asterisk devstate aid for realtime chan_sip members
+
+[Service]
+User=root
+WorkingDirectory=/opt/fibex/rt-queue-devstate
+ExecStart=/opt/fibex/rt-queue-devstate/rt-queue-devstate
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
