@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-// Структура конфигурационного файла
+// Config - Структура конфигурационного файла
 type Config struct {
 	Asterisk struct {
 		Host     string `yaml:"host"`
@@ -14,18 +14,10 @@ type Config struct {
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 	} `yaml:"asterisk"`
-	DB struct {
-		Host     string `yaml:"host"`
-		Port     int    `yaml:"port"`
-		User     string `yaml:"username"`
-		Password string `yaml:"password"`
-		Database string `yaml:"database"`
-		Table    string `yaml:"table"`
-	} `yaml:"mysql"`
 	LogLevel string `yaml:"loglevel"`
 }
 
-// Читаем конфиг и устанавливаем параметры приложения
+// GetConfigYaml - Читаем конфиг и устанавливаем параметры приложения
 func (a *MyApp) GetConfigYaml(filename string) {
 	log.Info("Reading config ", filename)
 
@@ -41,7 +33,7 @@ func (a *MyApp) GetConfigYaml(filename string) {
 	a.logLevel = setLogLevel(a.config.LogLevel)
 }
 
-// Устанавливаем уровень журналирования событий в приложении
+// setLogLevel - Устанавливаем уровень журналирования событий в приложении
 func setLogLevel(confLogLevel string) log.Level {
 	var result log.Level
 	switch confLogLevel {

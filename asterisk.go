@@ -7,6 +7,7 @@ import (
 	"strconv"
 )
 
+// RunAsteriskWorker - Запускает воркер Asterisk-а по чтению событий
 func (a *MyApp) RunAsteriskWorker() {
 	// Устанавливаем уровень журналирования событий функции
 	log.SetLevel(a.logLevel)
@@ -42,6 +43,7 @@ func (a *MyApp) RunAsteriskWorker() {
 
 }
 
+// SetInuse - Устанавливает Custom dev state в IN_USE
 func (a *MyApp) SetInuse(m map[string]string) {
 	log.SetLevel(a.logLevel)
 	log.Debugf("AMI event received: %v\n", m)
@@ -54,6 +56,7 @@ func (a *MyApp) SetInuse(m map[string]string) {
 	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s INUSE", fields[amiFieldMember])})
 }
 
+// SetNotinuse - Устанавливает Custom dev state в NOT_INUSE
 func (a *MyApp) SetNotinuse(m map[string]string) {
 	log.SetLevel(a.logLevel)
 	log.Debugf("AMI event received: %v\n", m)
@@ -66,6 +69,7 @@ func (a *MyApp) SetNotinuse(m map[string]string) {
 	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s NOT_INUSE", fields[amiFieldMember])})
 }
 
+// getFields - Получает значения параметров из события
 func getFields(m map[string]string, fields ...string) (map[string]string, error) {
 	values := make(map[string]string)
 	for _, field := range fields {
