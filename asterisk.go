@@ -24,11 +24,16 @@ func (a *MyApp) RunAsteriskWorker() {
 
 	a.ami.On("connect", func(message string) {
 		log.Info("AMI connected to: ", message)
+		log.Infof("Flush all custom devstates")
+		_, err := a.ami.Action(map[string]string{"Action": "Command", "Command": amiFlushDevstate})
+		if err != nil {
+			log.Error("AMI could not flush current custom devstates: ", err)
+		}
 	})
 
 	a.ami.On("error", func(message string) {
 		amiConn := fmt.Sprintf("%s:%s@%s:%d", a.config.Asterisk.Username, a.config.Asterisk.Password, a.config.Asterisk.Host, a.config.Asterisk.Port)
-		log.Fatalf("AMI connection error [%s]: %s", amiConn, message)
+		log.Warnf("AMI connection error [%s]: %s", amiConn, message)
 	})
 
 	err := a.ami.RegisterHandler(amiEventInUse, a.SetInuse)
