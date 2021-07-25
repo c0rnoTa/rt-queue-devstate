@@ -18,7 +18,7 @@ var gitHash, buildTime string
 func main() {
 	var App MyApp
 
-	log.Info("rtautoclear version ", gitHash, " build at ", buildTime)
+	log.Info("rt-queue-devstate version ", gitHash, " build at ", buildTime)
 
 	// Читаем конфиг
 	App.GetConfigYaml(configFileName)
