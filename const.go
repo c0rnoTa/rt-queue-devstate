@@ -13,4 +13,7 @@ const (
 	amiEventInUse    = "AgentConnect"
 	amiEventNotInUse = "AgentComplete"
 	amiFieldMember   = "MemberName"
+	amiCommand       = "devstate change Custom:%s %s"
+	devNotInuse      = "NOT_INUSE"
+	devInuse         = "INUSE"
 )

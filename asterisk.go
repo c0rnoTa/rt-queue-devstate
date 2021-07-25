@@ -53,7 +53,7 @@ func (a *MyApp) SetInuse(m map[string]string) {
 		return
 	}
 	log.Infof("AMI action here for member %s", fields[amiFieldMember])
-	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s INUSE", fields[amiFieldMember])})
+	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf(amiCommand, fields[amiFieldMember], devInuse)})
 }
 
 // SetNotinuse - Устанавливает Custom dev state в NOT_INUSE
@@ -66,7 +66,7 @@ func (a *MyApp) SetNotinuse(m map[string]string) {
 		return
 	}
 	log.Infof("AMI action here for member %s", fields[amiFieldMember])
-	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf("devstate change Custom:%s NOT_INUSE", fields[amiFieldMember])})
+	_, err = a.ami.Action(map[string]string{"Action": "Command", "Command": fmt.Sprintf(amiCommand, fields[amiFieldMember], devNotInuse)})
 }
 
 // getFields - Получает значения параметров из события
